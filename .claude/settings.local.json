@@ -1,0 +1,65 @@
+{
+  "projectName": "AI Summary Generator",
+  "description": "AI-powered article summarizer and SNS comment generator",
+  "version": "0.1.0",
+  "technology": {
+    "frontend": "Next.js 15 + React 19 + TypeScript + Tailwind CSS",
+    "backend": "Next.js API Routes",
+    "database": "Neon PostgreSQL + Prisma",
+    "ai": "OpenAI API (GPT-4)",
+    "deployment": "Vercel"
+  },
+  "developmentGuidelines": {
+    "codeStyle": "Follow Next.js best practices and TypeScript strict mode",
+    "componentStructure": "Use Server Components by default, Client Components when needed",
+    "naming": "Use descriptive names in English, comments in Japanese when needed",
+    "testing": "Add tests for critical business logic",
+    "documentation": "Keep docs/ folder updated with implementation progress"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git status *)",
+      "Bash(git log *)",
+      "Bash(git diff *)",
+      "Bash(npx prisma *)",
+      "Bash(npx tsc *)",
+      "Bash(ls *)",
+      "Read(../nocode-ui-builder/**/*)"
+    ]
+  },
+  "workflow": {
+    "ticketSystem": {
+      "enabled": true,
+      "autoNumbering": true,
+      "categories": ["phase", "feature", "bug", "enhancement"],
+      "statusEmoji": {
+        "notStarted": "🔴",
+        "inProgress": "🟡",
+        "completed": "🟢",
+        "blocked": "⚫",
+        "review": "🔵"
+      }
+    },
+    "gitCommitStrategy": {
+      "semantic": true,
+      "autoCommit": true,
+      "requireLocalhostVerification": true,
+      "includeTimeTracking": true,
+      "coAuthor": "Claude <noreply@anthropic.com>"
+    },
+    "progressTracking": {
+      "enabled": true,
+      "autoUpdate": true,
+      "files": [
+        "docs/ticket/PROGRESS.md",
+        "docs/ticket/phase/PROGRESS.md",
+        "docs/ticket/feature/PROGRESS.md",
+        "docs/ticket/bug/PROGRESS.md",
+        "docs/ticket/enhancement/PROGRESS.md"
+      ]
+    }
+  }
+}
