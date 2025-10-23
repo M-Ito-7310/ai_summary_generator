@@ -7,17 +7,14 @@
 ## 📊 Phase Progress Overview
 
 ```
-Progress: [░░░░░░░░░░] 0% (0/8 Completed)
+Progress: [██░░░░░░░░] 12.5% (1/8 Completed)
 ```
 
 ---
 
 ## 🔄 In Progress
 
-### Phase 01: プロジェクトセットアップ
-**Status**: 🟡 進行中 | **Est**: 2h | **Actual**: - | **Started**: 2025-10-23
-- 依存関係のインストールと動作確認
-- [詳細](./phase-01-project-setup.md)
+現在進行中のPhaseはありません。
 
 ---
 
@@ -74,9 +71,13 @@ Progress: [░░░░░░░░░░] 0% (0/8 Completed)
 ## ✅ Completed
 
 <details>
-<summary>完了したPhase (0件)</summary>
+<summary>完了したPhase (1件)</summary>
 
-完了したPhaseはまだありません。
+### Phase 01: プロジェクトセットアップ
+**Status**: 🟢 完了 | **Est**: 2h | **Actual**: 0.5h | **Completed**: 2025-10-23
+- ✅ 依存関係のインストールと動作確認
+- **Commit**: 8b2597c
+- [詳細](./phase-01-project-setup.md)
 
 </details>
 
@@ -85,17 +86,17 @@ Progress: [░░░░░░░░░░] 0% (0/8 Completed)
 ## 📈 Statistics
 
 - **Total Phases**: 8
-- **Completed**: 0 (0%)
-- **In Progress**: 1 (12.5%)
+- **Completed**: 1 (12.5%)
+- **In Progress**: 0 (0%)
 - **Not Started**: 7 (87.5%)
 - **Total Estimated**: 24時間
-- **Total Actual**: 0時間
+- **Total Actual**: 0.5時間
 
 ---
 
 ## 🎯 Next Action
 
-**Run**: `/start-phase 1` to begin Phase 01: プロジェクトセットアップ
+**Run**: `/start-phase 2` to begin Phase 02: UI実装
 
 ---
 
