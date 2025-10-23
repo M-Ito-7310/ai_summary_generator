@@ -18,23 +18,21 @@
   },
   "permissions": {
     "allow": [
-      "Bash(npm run *)",
-      "Bash(git add *)",
-      "Bash(git commit *)",
-      "Bash(git status *)",
-      "Bash(git log *)",
-      "Bash(git diff *)",
-      "Bash(npx prisma *)",
-      "Bash(npx tsc *)",
-      "Bash(ls *)",
-      "Read(../nocode-ui-builder/**/*)"
-    ]
+      "Bash(npm run build:*)"
+    ],
+    "deny": [],
+    "ask": []
   },
   "workflow": {
     "ticketSystem": {
       "enabled": true,
       "autoNumbering": true,
-      "categories": ["phase", "feature", "bug", "enhancement"],
+      "categories": [
+        "phase",
+        "feature",
+        "bug",
+        "enhancement"
+      ],
       "statusEmoji": {
         "notStarted": "🔴",
         "inProgress": "🟡",

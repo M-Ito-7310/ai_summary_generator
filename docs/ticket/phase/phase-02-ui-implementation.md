@@ -1,6 +1,6 @@
 # Phase 02: UI実装
 
-**Status**: 🔴 未着手
+**Status**: 🟡 進行中
 **Priority**: Critical
 **Estimated Time**: 4時間
 **Actual Time**: -
