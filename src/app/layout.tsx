@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { ToastProvider } from '@/contexts/ToastContext';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,28 +27,32 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={inter.className}>
-        <div className="min-h-screen flex flex-col">
-          {/* Header */}
-          <header className="bg-white border-b border-gray-200">
-            <div className="container mx-auto px-4 py-4">
-              <h1 className="text-2xl font-bold text-gray-900">
-                AIパパっと要約 & 感想ジェネレーター
-              </h1>
-            </div>
-          </header>
+        <ErrorBoundary>
+          <ToastProvider>
+            <div className="min-h-screen flex flex-col">
+              {/* Header */}
+              <header className="bg-white border-b border-gray-200">
+                <div className="container mx-auto px-4 py-4">
+                  <h1 className="text-2xl font-bold text-gray-900">
+                    AIパパっと要約 & 感想ジェネレーター
+                  </h1>
+                </div>
+              </header>
 
-          {/* Main Content */}
-          <main className="flex-1 container mx-auto px-4 py-8">{children}</main>
+              {/* Main Content */}
+              <main className="flex-1 container mx-auto px-4 py-8">{children}</main>
 
-          {/* Footer */}
-          <footer className="bg-white border-t border-gray-200">
-            <div className="container mx-auto px-4 py-6">
-              <p className="text-center text-sm text-gray-600">
-                © 2025 AIパパっと要約 & 感想ジェネレーター. All rights reserved.
-              </p>
+              {/* Footer */}
+              <footer className="bg-white border-t border-gray-200">
+                <div className="container mx-auto px-4 py-6">
+                  <p className="text-center text-sm text-gray-600">
+                    © 2025 AIパパっと要約 & 感想ジェネレーター. All rights reserved.
+                  </p>
+                </div>
+              </footer>
             </div>
-          </footer>
-        </div>
+          </ToastProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

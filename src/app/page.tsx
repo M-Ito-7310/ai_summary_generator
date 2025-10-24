@@ -5,7 +5,9 @@ import { UrlInputForm } from '@/components/UrlInputForm';
 import { SummaryDisplay } from '@/components/SummaryDisplay';
 import { CommentCard } from '@/components/CommentCard';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Spinner } from '@/components/ui/spinner';
+import { Spinner } from '@/components/ui/Spinner';
+import { SummaryResultSkeleton } from '@/components/ui/Skeleton';
+import { useToast } from '@/contexts/ToastContext';
 
 interface SummaryResult {
   article: {
@@ -36,6 +38,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<SummaryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { showSuccess, showError } = useToast();
 
   const handleSubmit = async (url: string) => {
     setIsLoading(true);
@@ -53,13 +56,17 @@ export default function HomePage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error?.message || '要約生成に失敗しました');
+        const errorMessage = errorData.error?.message || '要約生成に失敗しました';
+        showError(errorMessage, 'エラー');
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
       setResult(data.data);
+      showSuccess('要約が完了しました!', '成功');
     } catch (err) {
-      setError(err instanceof Error ? err.message : '不明なエラーが発生しました');
+      const errorMessage = err instanceof Error ? err.message : '不明なエラーが発生しました';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -86,9 +93,16 @@ export default function HomePage() {
 
       {/* Loading State */}
       {isLoading && (
-        <div className="flex flex-col items-center justify-center py-12 space-y-4">
-          <Spinner size="lg" />
-          <p className="text-gray-600">AI処理中...しばらくお待ちください</p>
+        <div className="space-y-6">
+          <div className="flex flex-col items-center justify-center py-8 space-y-4">
+            <Spinner size="lg" />
+            <p className="text-gray-600 text-center">
+              AI処理中...しばらくお待ちください
+              <br />
+              <span className="text-sm">記事取得→要約生成→感想生成</span>
+            </p>
+          </div>
+          <SummaryResultSkeleton />
         </div>
       )}
 

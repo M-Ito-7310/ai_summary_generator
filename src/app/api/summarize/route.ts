@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { fetchArticle } from '@/lib/scraper';
 import { generateSummary, generateComments, estimateTokens } from '@/lib/ai';
 import { saveSummary } from '@/lib/db/queries';
+import { CustomError } from '@/types/errors';
+import { handleApiError } from '@/lib/utils/errorHandler';
+import { urlSchema } from '@/lib/validation/schemas';
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now();
@@ -11,17 +14,14 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { url, options } = body;
 
-    // バリデーション
-    if (!url || typeof url !== 'string') {
-      return NextResponse.json(
-        {
-          success: false,
-          error: {
-            code: 'INVALID_URL',
-            message: '有効なURLを指定してください',
-          },
-        },
-        { status: 400 }
+    // Zodバリデーション
+    const validationResult = urlSchema.safeParse(url);
+    if (!validationResult.success) {
+      throw new CustomError(
+        'INVALID_URL',
+        validationResult.error.errors[0].message,
+        undefined,
+        false
       );
     }
 
@@ -91,35 +91,25 @@ export async function POST(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error('Error in /api/summarize:', error);
+    const appError = handleApiError(error);
 
-    // エラーコードの判定
-    let errorCode = 'INTERNAL_ERROR';
-    let errorMessage = 'サーバーエラーが発生しました';
-
-    if (error instanceof Error) {
-      if (error.message.includes('fetch')) {
-        errorCode = 'FETCH_FAILED';
-        errorMessage = '記事の取得に失敗しました';
-      } else if (error.message.includes('parse') || error.message.includes('content')) {
-        errorCode = 'PARSING_FAILED';
-        errorMessage = '記事の解析に失敗しました';
-      } else if (error.message.includes('OpenAI') || error.message.includes('API')) {
-        errorCode = 'AI_API_ERROR';
-        errorMessage = 'AI処理中にエラーが発生しました';
-      }
-    }
+    console.error('API Error:', {
+      code: appError.code,
+      message: appError.message,
+      details: appError.details,
+    });
 
     return NextResponse.json(
       {
         success: false,
         error: {
-          code: errorCode,
-          message: errorMessage,
-          details: error instanceof Error ? error.message : 'Unknown error',
+          code: appError.code,
+          message: appError.message,
+          details: appError.details,
+          retryable: appError.retryable,
         },
       },
-      { status: 500 }
+      { status: appError.code === 'RATE_LIMIT_EXCEEDED' ? 429 : appError.code === 'INVALID_URL' ? 400 : 500 }
     );
   }
 }
