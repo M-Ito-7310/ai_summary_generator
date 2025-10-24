@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchArticle } from '@/lib/scraper';
 import { generateSummary, generateComments, estimateTokens } from '@/lib/ai';
+import { saveSummary } from '@/lib/db/queries';
 
 export async function POST(request: NextRequest) {
   const startTime = Date.now();
@@ -45,6 +46,26 @@ export async function POST(request: NextRequest) {
 
     // 処理時間の計算
     const processingTime = Date.now() - startTime;
+
+    // データベースに保存
+    await saveSummary({
+      url: article.url,
+      title: article.title,
+      description: article.description,
+      content: article.content,
+      author: article.author,
+      publishedAt: article.publishedAt,
+      summaryLines: summary.lines,
+      summaryText: summary.fullText,
+      comments: comments.map((c, i) => ({
+        text: c.text,
+        tone: c.tone,
+        length: c.length,
+        position: i + 1,
+      })),
+      tokensUsed,
+      processingTime,
+    });
 
     // レスポンス返却
     return NextResponse.json({

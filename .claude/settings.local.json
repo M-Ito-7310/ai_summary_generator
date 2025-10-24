@@ -1,4 +1,12 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(npm run lint)"
+    ],
+    "deny": [],
+    "ask": []
+  },
   "projectName": "AI Summary Generator",
   "description": "AI-powered article summarizer and SNS comment generator",
   "version": "0.1.0",
@@ -15,13 +23,6 @@
     "naming": "Use descriptive names in English, comments in Japanese when needed",
     "testing": "Add tests for critical business logic",
     "documentation": "Keep docs/ folder updated with implementation progress"
-  },
-  "permissions": {
-    "allow": [
-      "Bash(npm run build:*)"
-    ],
-    "deny": [],
-    "ask": []
   },
   "workflow": {
     "ticketSystem": {

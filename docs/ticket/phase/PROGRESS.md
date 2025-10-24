@@ -14,7 +14,10 @@ Progress: [██████░░░░] 38% (3/8 Completed)
 
 ## 🔄 In Progress
 
-現在進行中のPhaseはありません。
+### Phase 04: データベース統合
+**Status**: 🟡 進行中 | **Est**: 3h | **Actual**: - (開始: 2025-10-24)
+- Neon PostgreSQL統合、履歴機能
+- [詳細](./phase-04-database-integration.md)
 
 ---
 
@@ -34,10 +37,6 @@ Progress: [██████░░░░] 38% (3/8 Completed)
 
 ### 🟠 High Priority
 
-#### Phase 04: データベース統合
-**Status**: 🔴 未着手 | **Est**: 3h | **Actual**: -
-- Neon PostgreSQL統合、履歴機能
-- [詳細](./phase-04-database-integration.md)
 
 #### Phase 05: エラーハンドリング＆UX改善
 **Status**: 🔴 未着手 | **Est**: 3h | **Actual**: -
