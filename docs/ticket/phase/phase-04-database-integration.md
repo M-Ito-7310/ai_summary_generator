@@ -1,10 +1,12 @@
 # Phase 04: データベース統合
 
-**Status**: 🟡 進行中
+**Status**: 🟢 完了
 **Priority**: High
 **Estimated Time**: 3時間
-**Actual Time**: - (開始: 2025-10-24)
+**Actual Time**: 1.0時間
 **Assigned**: AI Agent
+**Completed**: 2025-10-24
+**Commit**: f849786
 
 ---
 
@@ -113,7 +115,7 @@ Neon PostgreSQLとPrismaを使用して、要約履歴の保存・取得機能�
 <!-- クエリパフォーマンスの気づき -->
 
 ### 完了時のGitコミットハッシュ
-<!-- 完了時に記録 -->
+f849786 - feat(phase-4): implement database integration with Neon PostgreSQL
 
 ---
 
