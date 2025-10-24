@@ -1,9 +1,10 @@
 # Phase 08: Vercelデプロイ＆プレリリース
 
-**Status**: 🔴 未着手
+**Status**: 🟡 進行中
 **Priority**: Critical
 **Estimated Time**: 2時間
 **Actual Time**: -
+**Started**: 2025-10-24
 **Assigned**: AI Agent
 
 ---

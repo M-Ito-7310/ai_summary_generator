@@ -14,21 +14,16 @@ Progress: [██████████████] 87.5% (7/8 Completed)
 
 ## 🔄 In Progress
 
-現在進行中のPhaseはありません。
+#### Phase 08: Vercelデプロイ＆プレリリース
+**Status**: 🟡 進行中 | **Est**: 2h | **Actual**: - | **Started**: 2025-10-24
+- Vercelへのデプロイと本番環境確認
+- [詳細](./phase-08-deployment.md)
 
 ---
 
 ## ⏳ Awaiting Work (Priority Order)
 
 ### 🔴 Critical Priority
-
-
-
-
-#### Phase 08: Vercelデプロイ＆プレリリース
-**Status**: 🔴 未着手 | **Est**: 2h | **Actual**: -
-- Vercelへのデプロイと本番環境確認
-- [詳細](./phase-08-deployment.md)
 
 ---
 
