@@ -1,11 +1,12 @@
 # Phase 05: エラーハンドリング＆UX改善
 
-**Status**: 🟡 進行中
+**Status**: 🟢 完了
 **Priority**: High
 **Estimated Time**: 3時間
-**Actual Time**: -
+**Actual Time**: 1.5時間
 **Assigned**: AI Agent
 **Started**: 2025-10-24
+**Completed**: 2025-10-24
 
 ---
 
@@ -120,9 +121,9 @@
 <!-- テスト時の気づき -->
 
 ### 完了時のGitコミットハッシュ
-<!-- 完了時に記録 -->
+`4f6bff7` - refactor(phase-5): implement error handling & UX improvements
 
 ---
 
 **Created**: 2025-10-23
-**Last Updated**: 2025-10-23
+**Last Updated**: 2025-10-24
