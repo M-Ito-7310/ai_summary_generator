@@ -3,7 +3,7 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Copy, Check } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 
 export interface SummaryDisplayProps {
   summary: {
@@ -18,14 +18,14 @@ export interface SummaryDisplayProps {
   };
 }
 
-export function SummaryDisplay({ summary, article }: SummaryDisplayProps) {
+export const SummaryDisplay = memo(function SummaryDisplay({ summary, article }: SummaryDisplayProps) {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = async () => {
+  const handleCopy = useCallback(async () => {
     await navigator.clipboard.writeText(summary.fullText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
+  }, [summary.fullText]);
 
   return (
     <Card variant="bordered">
@@ -81,4 +81,4 @@ export function SummaryDisplay({ summary, article }: SummaryDisplayProps) {
       </CardContent>
     </Card>
   );
-}
+});

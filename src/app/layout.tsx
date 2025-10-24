@@ -4,18 +4,48 @@ import './globals.css';
 import { ToastProvider } from '@/contexts/ToastContext';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
-const inter = Inter({ subsets: ['latin'] });
+// フォント最適化 - サブセット指定とdisplay swap
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
-  title: 'AIパパっと要約 & 感想ジェネレーター',
+  title: {
+    default: 'AIパパっと要約 & 感想ジェネレーター',
+    template: '%s | AI要約',
+  },
   description:
-    'ニュース記事やブログのURLを入力するだけで、AIが即座に3行で要約し、SNS投稿用の感想コメントを3パターン生成します。',
-  keywords: ['AI', '要約', '感想生成', 'SNS', 'タイパ'],
-  authors: [{ name: 'Your Name' }],
+    'ニュース記事やブログのURLを入力するだけで、AIが即座に3行で要約し、SNS投稿用の感想コメントを3パターン生成します。時短でSNS投稿を準備できるツールです。',
+  keywords: ['AI', '要約', '感想生成', 'SNS', 'タイパ', 'OpenAI', 'GPT', 'まとめ', 'ニュース'],
+  authors: [{ name: 'AI Summary Generator' }],
+  creator: 'AI Summary Generator',
+  publisher: 'AI Summary Generator',
+  metadataBase: new URL('https://ai-summary-generator.vercel.app'),
   openGraph: {
-    title: 'AIパパっと要約 & 感想ジェネレーター',
-    description: 'AIが記事を3行で要約し、SNS投稿用の感想を3パターン生成',
     type: 'website',
+    locale: 'ja_JP',
+    url: 'https://ai-summary-generator.vercel.app',
+    title: 'AIパパっと要約 & 感想ジェネレーター',
+    description: 'AIが記事を3行で要約し、SNS投稿用の感想を3パターン自動生成',
+    siteName: 'AI要約ジェネレーター',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AIパパっと要約 & 感想ジェネレーター',
+    description: 'AIが記事を3行で要約し、SNS投稿用の感想を3パターン自動生成',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -24,8 +54,30 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'AIパパっと要約 & 感想ジェネレーター',
+    description:
+      'AIが記事を3行で要約し、SNS投稿用の感想を自動生成するWebアプリケーション',
+    url: 'https://ai-summary-generator.vercel.app',
+    applicationCategory: 'UtilityApplication',
+    operatingSystem: 'Any',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'JPY',
+    },
+  };
+
   return (
     <html lang="ja">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={inter.className}>
         <ErrorBoundary>
           <ToastProvider>

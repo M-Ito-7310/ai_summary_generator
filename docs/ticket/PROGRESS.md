@@ -11,7 +11,7 @@ Progress: [██████████] 62.5% (5/8 Phases Complete)
 ```
 
 **Status**: 🟢 順調
-**Current Phase**: Phase 05 - エラーハンドリング＆UX改善 (完了)
+**Current Phase**: Phase 06 - パフォーマンス最適化 (進行中)
 **Next Milestone**: 品質向上（Phase 5-7完了） - 🟡 進行中
 
 ---
@@ -28,7 +28,13 @@ Progress: [██████████] 62.5% (5/8 Phases Complete)
 
 ## 🔄 Current Work (In Progress)
 
-現在進行中の作業はありません。`/start-phase 6` で次のフェーズを開始してください。
+### Phase 06: パフォーマンス最適化
+**Status**: 🟡 進行中 | **Priority**: Medium | **Est**: 2h | **Started**: 2025-10-24
+- [ ] バンドルサイズ最適化
+- [ ] レンダリング最適化
+- [ ] Lighthouseスコア90以上達成
+
+[📄 詳細](./phase/phase-06-performance-optimization.md)
 
 ---
 
@@ -89,13 +95,6 @@ Progress: [██████████] 62.5% (5/8 Phases Complete)
 
 ---
 
-### Phase 06: パフォーマンス最適化
-**Status**: 🔴 未着手 | **Priority**: Medium | **Est**: 2h
-- [ ] バンドルサイズ最適化
-- [ ] レンダリング最適化
-- [ ] Lighthouseスコア90以上達成
-
-[📄 詳細](./phase/phase-06-performance-optimization.md)
 
 ---
 
@@ -126,8 +125,8 @@ Progress: [██████████] 62.5% (5/8 Phases Complete)
 ### Phase Statistics
 - **Total Phases**: 8
 - **Completed**: 5 (62.5%)
-- **In Progress**: 0 (0%)
-- **Not Started**: 3 (37.5%)
+- **In Progress**: 1 (12.5%)
+- **Not Started**: 2 (25%)
 - **Blocked**: 0 (0%)
 
 ### Time Tracking

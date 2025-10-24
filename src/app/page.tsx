@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { UrlInputForm } from '@/components/UrlInputForm';
 import { SummaryDisplay } from '@/components/SummaryDisplay';
 import { CommentCard } from '@/components/CommentCard';
@@ -40,7 +40,7 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const { showSuccess, showError } = useToast();
 
-  const handleSubmit = async (url: string) => {
+  const handleSubmit = useCallback(async (url: string) => {
     setIsLoading(true);
     setError(null);
     setResult(null);
@@ -70,7 +70,7 @@ export default function HomePage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [showSuccess, showError]);
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">

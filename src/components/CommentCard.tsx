@@ -2,6 +2,7 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { CopyButton } from '@/components/CopyButton';
+import { memo } from 'react';
 
 export interface CommentCardProps {
   comment: {
@@ -13,12 +14,13 @@ export interface CommentCardProps {
   index: number;
 }
 
-export function CommentCard({ comment, index }: CommentCardProps) {
-  const toneLabels = {
-    casual: 'カジュアル',
-    formal: 'フォーマル',
-    neutral: 'ニュートラル',
-  };
+const toneLabels = {
+  casual: 'カジュアル',
+  formal: 'フォーマル',
+  neutral: 'ニュートラル',
+} as const;
+
+export const CommentCard = memo(function CommentCard({ comment, index }: CommentCardProps) {
 
   return (
     <Card
@@ -55,4 +57,4 @@ export function CommentCard({ comment, index }: CommentCardProps) {
       </CardContent>
     </Card>
   );
-}
+});

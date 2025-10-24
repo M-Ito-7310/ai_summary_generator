@@ -14,7 +14,10 @@ Progress: [██████████] 62.5% (5/8 Completed)
 
 ## 🔄 In Progress
 
-現在進行中のPhaseはありません。
+### Phase 06: パフォーマンス最適化
+**Status**: 🟡 進行中 | **Est**: 2h | **Actual**: - | **Started**: 2025-10-24
+- バンドルサイズ最適化、Lighthouseスコア改善
+- [詳細](./phase-06-performance-optimization.md)
 
 ---
 
@@ -45,10 +48,8 @@ Progress: [██████████] 62.5% (5/8 Completed)
 
 ### 🟡 Medium Priority
 
-#### Phase 06: パフォーマンス最適化
-**Status**: 🔴 未着手 | **Est**: 2h | **Actual**: -
-- バンドルサイズ最適化、Lighthouseスコア改善
-- [詳細](./phase-06-performance-optimization.md)
+なし
+
 
 ---
 
@@ -95,8 +96,8 @@ Progress: [██████████] 62.5% (5/8 Completed)
 
 - **Total Phases**: 8
 - **Completed**: 5 (62.5%)
-- **In Progress**: 0 (0%)
-- **Not Started**: 3 (37.5%)
+- **In Progress**: 1 (12.5%)
+- **Not Started**: 2 (25%)
 - **Total Estimated**: 24時間
 - **Total Actual**: 6.0時間
 
