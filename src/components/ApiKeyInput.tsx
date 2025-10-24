@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { saveApiKey, getApiKey, deleteApiKey, maskApiKey } from '@/lib/storage/apiKey';
 import { validateApiKey } from '@/lib/ai';
 import { Key, Eye, EyeOff, AlertCircle, CheckCircle, Trash2 } from 'lucide-react';

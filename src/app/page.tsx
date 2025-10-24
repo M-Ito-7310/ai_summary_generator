@@ -5,7 +5,7 @@ import { UrlInputForm } from '@/components/UrlInputForm';
 import { ApiKeyInput } from '@/components/ApiKeyInput';
 import { SummaryDisplay } from '@/components/SummaryDisplay';
 import { CommentCard } from '@/components/CommentCard';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Spinner } from '@/components/ui/Spinner';
 import { SummaryResultSkeleton } from '@/components/ui/Skeleton';
 import { useToast } from '@/contexts/ToastContext';

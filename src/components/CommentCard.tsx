@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { CopyButton } from '@/components/CopyButton';
 import { memo } from 'react';
 
