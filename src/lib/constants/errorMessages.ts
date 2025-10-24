@@ -2,6 +2,7 @@ import type { ErrorCode } from '@/types/errors';
 
 export const ERROR_MESSAGES: Record<ErrorCode, string> = {
   INVALID_URL: '無効なURLです。正しいURL形式で入力してください。',
+  INVALID_API_KEY: '無効なGemini APIキーです。正しいAPIキーを設定してください。',
   FETCH_FAILED: '記事の取得に失敗しました。URLを確認してください。',
   PARSING_FAILED: '記事の解析に失敗しました。別の記事をお試しください。',
   AI_API_ERROR: 'AI処理でエラーが発生しました。しばらく待ってから再試行してください。',

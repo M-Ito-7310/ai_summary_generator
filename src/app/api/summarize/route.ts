@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchArticle } from '@/lib/scraper';
-import { generateSummary, generateComments, estimateTokens } from '@/lib/ai';
+import { generateSummary, generateComments, estimateTokens, validateApiKey } from '@/lib/ai';
 import { saveSummary } from '@/lib/db/queries';
 import { CustomError } from '@/types/errors';
 import { handleApiError } from '@/lib/utils/errorHandler';
@@ -12,7 +12,26 @@ export async function POST(request: NextRequest) {
   try {
     // リクエストボディの解析
     const body = await request.json();
-    const { url, options } = body;
+    const { url, apiKey, options } = body;
+
+    // APIキーのバリデーション
+    if (!apiKey || typeof apiKey !== 'string') {
+      throw new CustomError(
+        'INVALID_API_KEY',
+        'Gemini APIキーが指定されていません',
+        undefined,
+        false
+      );
+    }
+
+    if (!validateApiKey(apiKey)) {
+      throw new CustomError(
+        'INVALID_API_KEY',
+        '無効なGemini APIキー形式です',
+        undefined,
+        false
+      );
+    }
 
     // Zodバリデーション
     const validationResult = urlSchema.safeParse(url);
@@ -32,12 +51,13 @@ export async function POST(request: NextRequest) {
     const article = await fetchArticle(url);
 
     // 要約生成
-    const summary = await generateSummary(article.title, article.content);
+    const summary = await generateSummary(article.title, article.content, apiKey);
 
     // 感想コメント生成
     const comments = await generateComments(
       article.title,
       summary.fullText,
+      apiKey,
       tone
     );
 

@@ -2,12 +2,14 @@
 
 import { useState, useCallback } from 'react';
 import { UrlInputForm } from '@/components/UrlInputForm';
+import { ApiKeyInput } from '@/components/ApiKeyInput';
 import { SummaryDisplay } from '@/components/SummaryDisplay';
 import { CommentCard } from '@/components/CommentCard';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Spinner } from '@/components/ui/Spinner';
 import { SummaryResultSkeleton } from '@/components/ui/Skeleton';
 import { useToast } from '@/contexts/ToastContext';
+import { getApiKey } from '@/lib/storage/apiKey';
 
 interface SummaryResult {
   article: {
@@ -40,7 +42,18 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const { showSuccess, showError } = useToast();
 
+  const handleApiKeySet = useCallback((_apiKey: string) => {
+    // APIキー更新時の処理（必要に応じて追加）
+  }, []);
+
   const handleSubmit = useCallback(async (url: string) => {
+    // APIキーの確認
+    const apiKey = getApiKey();
+    if (!apiKey) {
+      showError('Gemini APIキーを設定してください', 'エラー');
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
     setResult(null);
@@ -51,7 +64,7 @@ export default function HomePage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url, apiKey }),
       });
 
       if (!response.ok) {
@@ -83,6 +96,9 @@ export default function HomePage() {
           URLを入力するだけで、AIが記事の本質を抽出し、投稿用の感想コメントを3パターン生成します
         </p>
       </div>
+
+      {/* API Key Input */}
+      <ApiKeyInput onApiKeySet={handleApiKeySet} />
 
       {/* Input Form */}
       <Card variant="elevated">

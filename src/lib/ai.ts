@@ -1,9 +1,5 @@
-import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { SUMMARY_SYSTEM_PROMPT, COMMENT_SYSTEM_PROMPT } from './prompts';
-
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
 
 export interface SummaryResult {
   lines: string[];
@@ -22,29 +18,48 @@ export interface CommentResult {
  */
 export async function generateSummary(
   title: string,
-  content: string
+  content: string,
+  apiKey: string
 ): Promise<SummaryResult> {
   try {
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [
-        { role: 'system', content: SUMMARY_SYSTEM_PROMPT },
-        {
-          role: 'user',
-          content: `【記事タイトル】\n${title}\n\n【記事本文】\n${content.substring(0, 4000)}`,
-        },
-      ],
-      temperature: 0.7,
-      max_tokens: 500,
+    // Gemini APIクライアントの初期化
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 500,
+      }
     });
 
-    const responseText = completion.choices[0]?.message?.content;
+    // プロンプト作成
+    const prompt = `${SUMMARY_SYSTEM_PROMPT}
+
+【記事タイトル】
+${title}
+
+【記事本文】
+${content.substring(0, 4000)}`;
+
+    // 生成実行
+    const result = await model.generateContent(prompt);
+    const response = result.response;
+    const responseText = response.text();
+
     if (!responseText) {
-      throw new Error('No response from OpenAI API');
+      throw new Error('No response from Gemini API');
     }
 
     // JSON形式のレスポンスをパース
-    const parsed = JSON.parse(responseText);
+    // Geminiのレスポンスはマークダウンコードブロック内にJSON形式で返される可能性があるため、
+    // コードブロックを除去する処理を追加
+    const cleanedResponse = responseText
+      .replace(/```json\n/g, '')
+      .replace(/```\n/g, '')
+      .replace(/```/g, '')
+      .trim();
+
+    const parsed = JSON.parse(cleanedResponse);
     const lines: string[] = parsed.lines || [];
 
     if (lines.length !== 3) {
@@ -67,29 +82,49 @@ export async function generateSummary(
 export async function generateComments(
   title: string,
   summary: string,
+  apiKey: string,
   tone: 'casual' | 'formal' | 'neutral' = 'casual'
 ): Promise<CommentResult[]> {
   try {
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [
-        { role: 'system', content: COMMENT_SYSTEM_PROMPT },
-        {
-          role: 'user',
-          content: `【記事タイトル】\n${title}\n\n【記事要約】\n${summary}\n\n【トーン】\n${tone}`,
-        },
-      ],
-      temperature: 0.8,
-      max_tokens: 500,
+    // Gemini APIクライアントの初期化
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      generationConfig: {
+        temperature: 0.8,
+        maxOutputTokens: 500,
+      }
     });
 
-    const responseText = completion.choices[0]?.message?.content;
+    // プロンプト作成
+    const prompt = `${COMMENT_SYSTEM_PROMPT}
+
+【記事タイトル】
+${title}
+
+【記事要約】
+${summary}
+
+【トーン】
+${tone}`;
+
+    // 生成実行
+    const result = await model.generateContent(prompt);
+    const response = result.response;
+    const responseText = response.text();
+
     if (!responseText) {
-      throw new Error('No response from OpenAI API');
+      throw new Error('No response from Gemini API');
     }
 
     // JSON形式のレスポンスをパース
-    const parsed = JSON.parse(responseText);
+    const cleanedResponse = responseText
+      .replace(/```json\n/g, '')
+      .replace(/```\n/g, '')
+      .replace(/```/g, '')
+      .trim();
+
+    const parsed = JSON.parse(cleanedResponse);
     const comments: string[] = parsed.comments?.map((c: { text: string }) => c.text) || [];
 
     if (comments.length !== 3) {
@@ -117,4 +152,17 @@ export function estimateTokens(text: string): number {
   const otherChars = text.length - japaneseChars;
 
   return Math.ceil(japaneseChars * 2 + otherChars / 4);
+}
+
+/**
+ * Gemini APIキーの形式検証
+ */
+export function validateApiKey(apiKey: string): boolean {
+  if (!apiKey || typeof apiKey !== 'string') {
+    return false;
+  }
+
+  // Gemini APIキーは通常39文字で、"AIza"で始まる
+  const trimmedKey = apiKey.trim();
+  return trimmedKey.startsWith('AIza') && trimmedKey.length === 39;
 }

@@ -51,7 +51,7 @@ AIパパっと要約 & 感想ジェネレーターは、ニュース記事やブ
 
 ### バックエンド
 - **Next.js API Routes** (サーバーレス)
-- **OpenAI API** (GPT-4)
+- **Google Gemini API** (gemini-1.5-flash)
 - **Prisma ORM**
 
 ### データベース
@@ -66,8 +66,9 @@ AIパパっと要約 & 感想ジェネレーターは、ニュース記事やブ
 
 - Node.js 18.x以上
 - npm 9.x以上
-- OpenAI APIキー
 - Neon PostgreSQL アカウント
+
+**注意**: Gemini APIキーは各ユーザーがアプリケーション内で設定します（開発者側での設定不要）
 
 ### インストール
 
@@ -95,15 +96,14 @@ cp .env.local.example .env.local
 `.env.local` ファイルを編集:
 
 ```env
-# OpenAI API
-OPENAI_API_KEY=your_openai_api_key_here
-
 # Database (Neon PostgreSQL)
 DATABASE_URL=your_neon_database_url_here
 DIRECT_URL=your_neon_direct_url_here
 
 # Next.js
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Note: Gemini APIキーはユーザーがUI上で設定します
 ```
 
 #### 4. データベースのセットアップ
@@ -126,6 +126,16 @@ npm run dev
 ```
 
 ブラウザで [http://localhost:3000](http://localhost:3000) を開きます。
+
+#### 6. Gemini APIキーの取得と設定
+
+1. [Google AI Studio](https://aistudio.google.com/app/apikey)にアクセス
+2. Googleアカウントでログイン
+3. 「Create API Key」をクリックしてAPIキーを生成
+4. アプリケーション内の「Gemini APIキー設定」セクションでAPIキーを入力
+5. 「APIキーを保存」をクリック
+
+**注意**: APIキーはブラウザのローカルストレージに保存されます。共有PCでは使用後に削除してください。
 
 ## スクリプト
 
@@ -175,22 +185,28 @@ ai-summary-generator/
 
 ## 主要機能
 
-### 1. URL入力
+### 1. APIキー管理
+- ユーザーごとにGemini APIキーを設定
+- ローカルストレージで安全に保存
+- APIキーの表示/非表示切り替え
+- ワンクリックで削除可能
+
+### 2. URL入力
 - シンプルで直感的なURL入力フォーム
 - ペースト操作に最適化
 - スマホでの操作性を重視
 
-### 2. AI要約生成
-- 記事を3行で簡潔に要約
+### 3. AI要約生成
+- Gemini APIで記事を3行で簡潔に要約
 - 重要なポイントを自動抽出
 - 読みやすい日本語表現
 
-### 3. 感想コメント生成
+### 4. 感想コメント生成
 - SNS投稿に適した長さとトーン
 - 異なる視点・切り口で3パターン生成
 - ワンクリックでコピー可能
 
-### 4. 結果表示
+### 5. 結果表示
 - 見やすいカード形式
 - コピー＆ペーストで即座に使用可能
 - レスポンシブデザイン
@@ -205,7 +221,8 @@ ai-summary-generator/
 
 ```json
 {
-  "url": "https://example.com/article"
+  "url": "https://example.com/article",
+  "apiKey": "AIzaSy..."
 }
 ```
 
@@ -262,10 +279,11 @@ vercel
 ```
 
 環境変数の設定:
-- `OPENAI_API_KEY`
 - `DATABASE_URL`
 - `DIRECT_URL`
 - `NEXT_PUBLIC_APP_URL`
+
+**注意**: Gemini APIキーはユーザーがアプリケーション内で設定するため、環境変数として設定する必要はありません。
 
 ## ドキュメント
 

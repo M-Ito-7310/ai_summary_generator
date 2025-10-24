@@ -1,5 +1,6 @@
 export type ErrorCode =
   | 'INVALID_URL'
+  | 'INVALID_API_KEY'
   | 'FETCH_FAILED'
   | 'PARSING_FAILED'
   | 'AI_API_ERROR'
